@@ -17,8 +17,27 @@ Input: [2,2,1,1,1,2,2]
 Output: 2, 1
 
 """
+import math
 from typing import List, Tuple
 
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
-    ...
+    inp.sort()
+    length = len(inp)
+    min_count = length + 1
+    curr_count = 1
+    for i in range(1, length):
+        if inp[i] == inp[i - 1]:
+            curr_count = curr_count + 1
+        else:
+            if curr_count < min_count:
+                min_count = curr_count
+                minor_res = inp[i - 1]
+            curr_count = 1
+    if curr_count < min_count:
+        minor_res = inp[length - 1]
+    if length % 2 == 0:
+        major_res = inp[length / 2]
+    else:
+        major_res = inp[math.ceil(length / 2)]
+    return major_res, minor_res

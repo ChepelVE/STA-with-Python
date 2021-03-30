@@ -24,3 +24,25 @@ assert = custom_range(string.ascii_lowercase, 'g', 'p') == ['g', 'h', 'i', 'j', 
 assert = custom_range(string.ascii_lowercase, 'p', 'g', -2) == ['p', 'n', 'l', 'j', 'h']
 
 """
+
+
+def custom_range(*args):
+    range_result = []
+    number_of_args = len(args)
+    if number_of_args == 2:
+        first_letter = args[0][0]
+        stop = args[1]
+        for c in range(ord(first_letter), ord(stop)):
+            range_result.append(chr(c))
+    if number_of_args == 3:
+        start = args[1]
+        stop = args[2]
+        for c in range(ord(start), ord(stop)):
+            range_result.append(chr(c))
+    if number_of_args == 4:
+        start = args[1]
+        stop = args[2]
+        step = args[3]
+        for c in range(ord(start), ord(stop), step):
+            range_result.append(chr(c))
+    return range_result
