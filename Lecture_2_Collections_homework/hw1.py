@@ -37,21 +37,14 @@ def validate_line(line: str) -> bool:
     if line.startswith(" "):
         return False
     length = len(line.split(" "))
-    if length == 5:
-        return True
-    else:
-        return False
+    return length == 5
 
 
 def validate_date(line: str) -> bool:
-    line_elements = line.split(" ")
-    line_elements.reverse()
+    line_elements = line.split(" ")[::-1]
     date = line_elements[0].strip()
     pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
-    if re.fullmatch(pattern, date):
-        return True
-    else:
-        return False
+    return re.fullmatch(pattern, date)
 
 
 def check_data(filepath: str, validators: Iterable[Callable]) -> str:
@@ -60,6 +53,7 @@ def check_data(filepath: str, validators: Iterable[Callable]) -> str:
         for line in data:
             for validator in validators:
                 if not validator(line):
-                    result.write("{} {}\n".format(line.rstrip('\n'), validator.__name__))
+                    result.write(f"{line.rstrip(chr(10))} {validator.__name__}\n")
+                    #result.write("{} {}\n".format(line.rstrip('\n'), validator.__name__))
                     break
     return os.path.abspath(result_path)
