@@ -28,16 +28,32 @@ output lines:
 foo@example.com 729.83 EUR accountName 2021-01:0 validate_date
 bar@example.com 729.83 accountName 2021-01-02 validate_line
 """
+import os
 from typing import Callable, Iterable
+import re
 
 
 def validate_line(line: str) -> bool:
-    ...
+    if line.startswith(" "):
+        return False
+    length = len(line.split(" "))
+    return length == 5
 
 
-def validate_date(date: str) -> bool:
-    ...
+def validate_date(line: str) -> bool:
+    line_elements = line.split(" ")[::-1]
+    date = line_elements[0].strip()
+    pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
+    return re.fullmatch(pattern, date)
 
 
 def check_data(filepath: str, validators: Iterable[Callable]) -> str:
-    ...
+    result_path = "result.txt"
+    with open(filepath, "r") as data, open(result_path, "w") as result:
+        for line in data:
+            for validator in validators:
+                if not validator(line):
+                    result.write(f"{line.rstrip(chr(10))} {validator.__name__}\n")
+                    #result.write("{} {}\n".format(line.rstrip('\n'), validator.__name__))
+                    break
+    return os.path.abspath(result_path)

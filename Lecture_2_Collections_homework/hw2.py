@@ -17,8 +17,11 @@ Input: [2,2,1,1,1,2,2]
 Output: 2, 1
 
 """
+import math
+from collections import Counter
 from typing import List, Tuple
 
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
-    ...
+    c = Counter(inp)
+    return max(c, key=c.get), min(c, key=c.get)
