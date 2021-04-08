@@ -1,7 +1,4 @@
 # fix get_joke and get_bored functions so we can make valid response from the API's
-# using get_bored function find the activity name with id=5977626 https://www.boredapi.com/documentation
-# using get_joke function count number of Spooky jokes but not racist or sexist (other options are default) https://sv443.net/jokeapi/v2/
-
 import requests
 
 
@@ -21,18 +18,22 @@ def build_request(method, base_url):
 
 @build_request(method="GET", base_url="https://v2.jokeapi.dev/joke")
 def get_joke(**kwargs):
-    return # fix me
+    return kwargs.get("resp")
 
 
 @build_request(method="GET", base_url="http://www.boredapi.com/api")
-def get_bored(): # fix me
-    kwargs.get("whatever") # fix me
+def get_bored(**kwargs):
+    return kwargs.get("resp")
 
 
-resp = get_joke(uri="/any")
-print(resp.status_code)
+# using get_joke function count number of Spooky jokes but not racist or sexist (other options are default)
+# https://sv443.net/jokeapi/v2/
+resp = get_joke(uri="/Spooky", params="blacklistFlags=racist,sexist")
 print(resp.text)
+c = resp.text.count("\"id\"")
+print("Count of jokes is {}".format(c))
 
-resp = get_bored(uri="/activity")
-print(resp.status_code)
+
+# using get_bored function find the activity name with id=5977626 https://www.boredapi.com/documentation
+resp = get_bored(uri="/activity", params="key=5977626")
 print(resp.text)

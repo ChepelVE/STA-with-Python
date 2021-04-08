@@ -6,13 +6,15 @@
 # hit Ctrl+Shift+F10 or RMB on the file to run tests
 
 def io_func(logfile_path, result_file_path):
-    # filter logfile_path, writes into the result_file_path
-    pass
+    with open(logfile_path, "r") as data, open(result_file_path, "w") as result:
+        all_lines = data.readlines()
+        lines_with_redirect = filter(lambda x: x is not None, list(map(pure_func, all_lines)))
+        result.write(chr(10).join(lines_with_redirect))
 
 
 def pure_func(file_line):
-    # some logic that filter lines and doesn't depends on global state
-    pass
+    if file_line.find("HTTP/1.1\" 304") != -1:
+        return file_line.split(" ")[0]
 
 
 def test_myfunc_positive():
@@ -22,5 +24,12 @@ def test_myfunc_positive():
 
 
 def test_myfunc_negative():
-    # put some logic here that checks that line without 304 code is not goes into filter return
-    pass
+    line = '83.149.9.216 - - [17/May/2015:10:05:03 +0000] ' \
+           '"GET /presentations/logstash-monitorama-2013/images/kibana-search.png HTTP/1.1" 200 203023 ' \
+           '"http://semicomplete.com/presentations/logstash-monitorama-2013/" "Mozilla/5.0 (Macintosh; ' \
+           'Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36"'
+    assert pure_func(line) is None
+
+
+def test_real_file():
+    io_func("apache_log", "redirect_hosts.txt")
