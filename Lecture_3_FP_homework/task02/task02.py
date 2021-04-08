@@ -28,12 +28,12 @@ def get_bored(**kwargs):
 
 # using get_joke function count number of Spooky jokes but not racist or sexist (other options are default)
 # https://sv443.net/jokeapi/v2/
-resp = get_joke(uri="/Spooky", params="blacklistFlags=racist,sexist")
+resp = get_joke(uri="/Spooky", params={'blacklistFlags': 'racist,sexist'})
 print(resp.text)
 c = resp.text.count("\"id\"")
 print("Count of jokes is {}".format(c))
 
 
 # using get_bored function find the activity name with id=5977626 https://www.boredapi.com/documentation
-resp = get_bored(uri="/activity", params="key=5977626")
-print(resp.text)
+resp = get_bored(uri="/activity", params={'key': 5977626})
+print("Activity with id=5977626: {}".format(resp.json()['activity']))
