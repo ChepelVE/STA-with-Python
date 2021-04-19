@@ -37,7 +37,39 @@ PEP8 соблюдать строго.
 К названием остальных переменных, классов и тд. подходить ответственно -
 давать логичные подходящие имена.
 """
-import datetime
+from datetime import datetime, timedelta
+
+
+class Homework:
+    def __init__(self, text: str, deadline: int):
+        self.text = text
+        self.deadline = deadline
+        self.created = datetime.now()
+
+    def is_active(self) -> bool:
+        return datetime.now() - self.created < timedelta(days=self.deadline)
+
+
+class Student:
+    def __init__(self, first_name: str, last_name: str):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def do_homework(self, current_homework: Homework) -> Homework:
+        if current_homework.is_active():
+            return current_homework
+        else:
+            print("You are late!")
+            return None
+
+
+class Teacher:
+    def __init__(self, first_name: str, last_name: str):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def create_homework(self, text: str, deadline: int) -> Homework:
+        return Homework(text, deadline)
 
 
 if __name__ == '__main__':
