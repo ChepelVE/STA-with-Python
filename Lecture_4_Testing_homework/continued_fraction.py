@@ -3,12 +3,15 @@ from typing import List
 
 
 def cont_fraction(fraction: str) -> str:
-    ip = int(fraction.split("/")[0])
-    fp = int(fraction.split("/")[1])
+    ip, fp = map(int, fraction.split("/"))
     cf = []
 
     def cont_fraction_recursive(ip: int, fp: int) -> List:
-        a = math.floor(ip / fp)
+        try:
+            a = math.floor(ip / fp)
+        except ZeroDivisionError:
+            print("Invalid fraction!")
+            return -1
         cf.append(str(a))
         if ip % fp != 0:
             ip -= a * fp
