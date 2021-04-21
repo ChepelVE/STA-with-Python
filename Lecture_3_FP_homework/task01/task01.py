@@ -9,7 +9,7 @@ def io_func(logfile_path, result_file_path):
     with open(logfile_path, "r") as data, open(result_file_path, "w") as result:
         all_lines = data.readlines()
         lines_with_redirect = filter(lambda x: x is not None, list(map(pure_func, all_lines)))
-        result.write(chr(10).join(lines_with_redirect))
+        result.write('\n'.join(lines_with_redirect))
 
 
 def pure_func(file_line):
