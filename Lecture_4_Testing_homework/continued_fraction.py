@@ -1,4 +1,3 @@
-import math
 from typing import List
 
 
@@ -8,7 +7,7 @@ def cont_fraction(fraction: str) -> str:
 
     def cont_fraction_recursive(ip: int, fp: int) -> List:
         try:
-            a = math.floor(ip / fp)
+            a = ip // fp
         except ZeroDivisionError:
             print("Invalid fraction!")
             return -1
