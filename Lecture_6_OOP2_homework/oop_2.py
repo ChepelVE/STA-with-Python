@@ -49,8 +49,68 @@ PEP8 соблюдать строго.
 К названием остальных переменных, классов и тд. подходить ответственно -
 давать логичные подходящие имена.
 """
-import datetime
+from datetime import datetime, timedelta
 from collections import defaultdict
+
+
+class Homework:
+    def __init__(self, text: str, deadline: int):
+        self.text = text
+        self.deadline = deadline
+        self.created = datetime.now()
+
+    def is_active(self) -> bool:
+        return datetime.now() - self.created < timedelta(days=self.deadline)
+
+
+class DeadlineError(Exception):
+    print('You are late')
+
+
+class Person:
+    def __init__(self, first_name: str, last_name: str):
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+class Student(Person):
+    def do_homework(self, current_homework: Homework, solution: str):
+        if current_homework.is_active():
+            return HomeworkResult(self, current_homework, solution)
+        else:
+            raise DeadlineError
+
+
+class HomeworkResult:
+    def __init__(self, author: Student, homework: Homework, solution: str):
+        if not isinstance(homework, Homework):
+            raise TypeError('You gave a not Homework object')
+        self.author = author
+        self.homework = homework
+        self.solution = solution
+        self.created = datetime.now()
+
+
+class Teacher(Person):
+    homework_done = defaultdict(str)
+
+    def create_homework(self, text: str, deadline: int) -> Homework:
+        return Homework(text, deadline)
+
+    def check_homework(self, homework_result: HomeworkResult) -> bool:
+        key, value = homework_result.homework, homework_result.solution
+        if len(value) > 5 and (key, value) not in self.homework_done.items():
+            Teacher.homework_done[key] = value
+            return True
+        return False
+
+    def reset_results(*args):
+        if len(args) == 1 and isinstance(args, Homework):
+            del Teacher.homework_done[args]
+        if len(args) == 0:
+            Teacher.homework_done.clear()
+        else:
+            raise TypeError
 
 
 if __name__ == '__main__':
