@@ -21,7 +21,38 @@ Also, add more tests to the test_dict.py to check response content.
 """
 
 from typing import Dict, List
+from collections import defaultdict
+import requests
+
+
+class ManufacturersPages:
+    def __init__(self, url_: str):
+        self.url = url_
+        self.page_number = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.page_number += 1
+        self.page_json_content = requests.get(f"{self.url}&page={self.page_number}").json()
+        if self.page_json_content["Count"]:
+            return self.page_json_content
+        raise StopIteration
 
 
 def create_country_make_dict(url: str) -> Dict[str, List[str]]:
-    ...
+    country_manufacturers = defaultdict(list)
+    for manufacturer_page in ManufacturersPages(url):
+        for result in manufacturer_page["Results"]:
+            country = result["Country"]
+            if country:
+                country_manufacturers[country].append(result["Mfr_Name"])
+    return dict(country_manufacturers)
+
+
+
+
+
+
+
