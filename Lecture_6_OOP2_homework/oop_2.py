@@ -64,7 +64,7 @@ class Homework:
 
 
 class DeadlineError(Exception):
-    print('You are late')
+    pass
 
 
 class Person:
@@ -78,7 +78,7 @@ class Student(Person):
         if current_homework.is_active():
             return HomeworkResult(self, current_homework, solution)
         else:
-            raise DeadlineError
+            raise DeadlineError('You are late!')
 
 
 class HomeworkResult:
@@ -92,25 +92,25 @@ class HomeworkResult:
 
 
 class Teacher(Person):
-    homework_done = defaultdict(str)
+    homework_done = defaultdict(list)
 
     def create_homework(self, text: str, deadline: int) -> Homework:
         return Homework(text, deadline)
 
     def check_homework(self, homework_result: HomeworkResult) -> bool:
         key, value = homework_result.homework, homework_result.solution
-        if len(value) > 5 and (key, value) not in self.homework_done.items():
-            Teacher.homework_done[key] = value
+        if len(value) > 5 and value not in self.homework_done[key]:
+            Teacher.homework_done[key].append(value)
             return True
         return False
 
-    def reset_results(*args):
-        if len(args) == 1 and isinstance(args, Homework):
-            del Teacher.homework_done[args]
-        if len(args) == 0:
-            Teacher.homework_done.clear()
-        else:
+    def reset_results(homework_to_delete=None):
+        if homework_to_delete and isinstance(homework_to_delete, Homework):
+            del Teacher.homework_done[homework_to_delete]
+        if homework_to_delete and not isinstance(homework_to_delete, Homework):
             raise TypeError
+        else:
+            Teacher.homework_done.clear()
 
 
 if __name__ == '__main__':
