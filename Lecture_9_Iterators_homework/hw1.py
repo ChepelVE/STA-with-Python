@@ -20,5 +20,15 @@ from pathlib import Path
 from typing import Iterator, List, Union
 
 
-def merge_sorted_files(file_list: List[Union[Path, str], ...]) -> Iterator:
-    pass
+def merge_sorted_files(file_list) -> Iterator:
+    lst = []
+
+    for file_path in file_list:
+        with open(file_path) as file_data:
+            for line in file_data:
+                lst.append(line.strip('\n'))
+
+    return sorted(lst)
+
+
+
