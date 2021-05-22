@@ -98,8 +98,8 @@ class Teacher(Person):
         return Homework(text, deadline)
 
     def check_homework(self, homework_result: HomeworkResult) -> bool:
-        key, value = homework_result.homework, homework_result.solution
-        if len(value) > 5 and value not in self.homework_done[key]:
+        key, value = homework_result.homework, homework_result
+        if len(homework_result.solution) > 5 and homework_result not in Teacher.homework_done[key]:
             Teacher.homework_done[key].append(value)
             return True
         return False
