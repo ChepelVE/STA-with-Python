@@ -26,9 +26,9 @@ def merge_sorted_files(file_list) -> Iterator:
     for file_path in file_list:
         with open(file_path) as file_data:
             for line in file_data:
-                lst.append(line.strip('\n'))
+                lst.append(int(line.strip('\n')))
 
-    return sorted(lst)
+    return iter(sorted(lst))
 
 
 
