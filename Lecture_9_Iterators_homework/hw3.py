@@ -10,11 +10,28 @@ For dir with two files from hw1.py:
 6
 
 """
+import os
+
 from pathlib import Path
 from typing import Callable, Optional
 
 
-def universal_file_counter(
-    dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None
-) -> int:
-    pass
+def files_gen(dir_path: Path, file_extension: str):
+    for file in os.listdir(dir_path):
+        if file.endswith(file_extension):
+            yield file
+
+
+def universal_file_counter(dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None) -> int:
+    counter = 0
+    files = files_gen(dir_path, file_extension)
+    for file in files:
+        with open(file) as file_data:
+            if tokenizer is None:
+                counter += len(file_data.readlines())
+            else:
+                for line in file_data:
+                    counter += len(tokenizer(line))
+    return counter
+
+
