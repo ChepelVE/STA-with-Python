@@ -23,9 +23,9 @@ def load_teachers(apps, schema_editor):
 def load_homeworks(apps, schema_editor):
     Homework = apps.get_model("homework_tracker_db", "Homework")
 
-    Homework(text='OOP', deadline=5, created='2020-12-19 09:26:03.478039').save()
-    Homework(text='Databases', deadline=10, created='2020-11-01 10:26:03.478039').save()
-    Homework(text='Functions', deadline=3, created='2020-10-04 12:36:03.478039').save()
+    Homework(text='OOP', deadline=5, created=datetime(2019, 12, 19, 9, 26, 3, 478039), teacher_id=2).save()
+    Homework(text='Databases', deadline=10, created=datetime(2019, 11, 1, 10, 26, 3, 478039), teacher_id=1).save()
+    Homework(text='Functions', deadline=3, created=datetime(2019, 10, 4, 12, 36, 3, 478039), teacher_id=2).save()
 
 
 def load_homework_results(apps, schema_editor):
@@ -41,7 +41,7 @@ def load_homework_results(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('homework_tracker_db', '0001_initial_migration'),
+        ('homework_tracker_db', '0001_create_tables'),
     ]
 
     operations = [

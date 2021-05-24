@@ -27,6 +27,7 @@ class Homework(models.Model):
     text = models.CharField(max_length=100)
     deadline = models.IntegerField()
     created = models.DateTimeField()
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'homeworks'
