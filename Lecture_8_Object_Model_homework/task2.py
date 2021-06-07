@@ -20,7 +20,7 @@ class TableData:
     def __next__(self):
         self.row = self.cursor.execute(f"SELECT * from presidents where name > '{self.name}' order by name limit 1") \
             .fetchone()
-        if self.row is not None:
+        if self.row:
             self.name = self.row[0]
             return dict(zip(['name', 'code', 'country'], self.row))
         raise StopIteration
