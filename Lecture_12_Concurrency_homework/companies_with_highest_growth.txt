@@ -1,0 +1,52 @@
+[
+    {
+        "name": "L Brands Inc ",
+        "code": "LB",
+        "growth": 347.65
+    },
+    {
+        "name": "Freeport-McMoRan Inc ",
+        "code": "FCX",
+        "growth": 266.07
+    },
+    {
+        "name": "Tesla ",
+        "code": "TSLA",
+        "growth": 211.68
+    },
+    {
+        "name": "Tapestry ",
+        "code": "TPR",
+        "growth": 204.65
+    },
+    {
+        "name": "The Mosaic Co ",
+        "code": "MOS",
+        "growth": 171.64
+    },
+    {
+        "name": "Enphase Energy Inc ",
+        "code": "ENPH",
+        "growth": 159.87
+    },
+    {
+        "name": "Invesco Ltd ",
+        "code": "IVZ",
+        "growth": 150.69
+    },
+    {
+        "name": "Applied Materials Inc. ",
+        "code": "AMAT",
+        "growth": 143.7
+    },
+    {
+        "name": "Quanta Services Inc. ",
+        "code": "PWR",
+        "growth": 142.81
+    },
+    {
+        "name": "PVH Corp. ",
+        "code": "PVH",
+        "growth": 140.69
+    }
+]
