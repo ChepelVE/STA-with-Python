@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Alphabet C (ex Google) ",
+        "code": "GOOG",
+        "potential profit": 85735.004429
+    },
+    {
+        "name": "Alphabet A (ex Google) ",
+        "code": "GOOGL",
+        "potential profit": 79513.57467800002
+    },
+    {
+        "name": "Amazon ",
+        "code": "AMZN",
+        "potential profit": 66508.142913
+    },
+    {
+        "name": "Tesla ",
+        "code": "TSLA",
+        "potential profit": 51356.14860800001
+    },
+    {
+        "name": "Mettler-Toledo International Inc. ",
+        "code": "MTD",
+        "potential profit": 43480.85724899999
+    },
+    {
+        "name": "Chipotle Mexican Grill Inc. ",
+        "code": "CMG",
+        "potential profit": 40420.204822
+    },
+    {
+        "name": "AutoZone Inc. ",
+        "code": "AZO",
+        "potential profit": 33135.578323
+    },
+    {
+        "name": "Align Technology Inc. ",
+        "code": "ALGN",
+        "potential profit": 28531.273707000004
+    },
+    {
+        "name": "Lam Research Corp. ",
+        "code": "LRCX",
+        "potential profit": 27481.763096000002
+    },
+    {
+        "name": "NVIDIA Corp. ",
+        "code": "NVDA",
+        "potential profit": 26331.407264999998
+    }
+]
